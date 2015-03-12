@@ -188,12 +188,13 @@ public class framePrincipal extends javax.swing.JFrame {
 
     private void botonArribaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonArribaActionPerformed
         
-        
-        areaMostrar.setSelectionStart(fCursor-15);
-        areaMostrar.setSelectionEnd(fCursor-14);
-        areaMostrar.requestFocus();
-        
-                fCursor-=15;
+        if (matriz[puntoF-1][puntoC]=='#'){
+            areaMostrar.setSelectionStart(fCursor-15);
+            areaMostrar.setSelectionEnd(fCursor-14);
+            areaMostrar.requestFocus();
+            fCursor-=15;
+            puntoF-=1;
+        }
     }//GEN-LAST:event_botonArribaActionPerformed
 
     private void botonAbajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAbajoActionPerformed
