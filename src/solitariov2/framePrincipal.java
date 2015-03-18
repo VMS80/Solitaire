@@ -7,6 +7,7 @@ package solitariov2;
 
 import java.awt.Color;
 import java.util.HashSet;
+import javax.swing.JOptionPane;
 import javax.swing.text.Caret;
 
 /**
@@ -33,7 +34,7 @@ public class framePrincipal extends javax.swing.JFrame {
     int posicionFF;
     int posicionCF;
     
-    Senku juego = new Senku(matriz);
+    Senku juego = new Senku(matriz, tamanio);
     
 
     public framePrincipal() {
@@ -161,18 +162,7 @@ public class framePrincipal extends javax.swing.JFrame {
         
 
         
-        for(int f = 0; f < tamanio ; f++){
-            for (int c = 0; c < tamanio; c++){
-                if((f <=1 && c<=1) || (f<=1 && c>=5) || (f>=5 && c<=1 )|| (c>=5 && f>=5)){
-                    matriz [f][c] = ' ';
-                }else{
-                    if (f == tamanio/2 && c == tamanio/2){
-                        matriz [f][c] = 'O';
-                    }else{
-                        matriz [f][c] = '#';                     }
-                }
-            }
-        }
+        
         
         muestraMatriz();
 
@@ -257,8 +247,11 @@ public class framePrincipal extends javax.swing.JFrame {
         
         
         if (!seleccionado){
-            juego.Comprueba(posicionFI, posicionFF, posicionCI, posicionCF);
+            if (!juego.Comprueba(posicionFI, posicionFF, posicionCI, posicionCF)){
+                JOptionPane.showMessageDialog(this, "Movimiento no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
+        
         
         muestraMatriz(); 
         areaMostrar.setSelectionStart(fCursor);
