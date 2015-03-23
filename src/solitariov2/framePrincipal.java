@@ -54,6 +54,9 @@ public class framePrincipal extends javax.swing.JFrame {
         botonDerecha = new javax.swing.JButton();
         botonAbajo = new javax.swing.JButton();
         botonGo = new javax.swing.JButton();
+        etiquetaNJugadas = new javax.swing.JLabel();
+        textoNJugadas = new javax.swing.JTextField();
+        botonDeshacer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,6 +113,17 @@ public class framePrincipal extends javax.swing.JFrame {
             }
         });
 
+        etiquetaNJugadas.setText("Nº Jugadas:");
+
+        textoNJugadas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+
+        botonDeshacer.setText("Deshacer");
+        botonDeshacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonDeshacerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,31 +131,35 @@ public class framePrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(39, 39, 39)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(botonIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(botonArriba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonAbajo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(botonGo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(botonMostrar)))
-                .addGap(0, 37, Short.MAX_VALUE))
+                        .addComponent(etiquetaNJugadas)
+                        .addGap(30, 30, 30)
+                        .addComponent(textoNJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(botonDeshacer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(botonIzquierda, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(botonArriba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonAbajo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botonGo, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(botonDerecha, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botonMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(botonMostrar)
-                        .addGap(39, 39, 39)
+                        .addGap(18, 18, 18)
                         .addComponent(botonArriba)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -149,8 +167,13 @@ public class framePrincipal extends javax.swing.JFrame {
                             .addComponent(botonIzquierda)
                             .addComponent(botonDerecha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonAbajo))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botonAbajo)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonDeshacer)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(etiquetaNJugadas)
+                            .addComponent(textoNJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -161,7 +184,6 @@ public class framePrincipal extends javax.swing.JFrame {
        // char [][] matriz = new char[7][7];
         
 
-        
         
         
         muestraMatriz();
@@ -249,6 +271,8 @@ public class framePrincipal extends javax.swing.JFrame {
         if (!seleccionado){
             if (!juego.Comprueba(posicionFI, posicionFF, posicionCI, posicionCF)){
                 JOptionPane.showMessageDialog(this, "Movimiento no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                textoNJugadas.setText(String.valueOf(juego.getNMovimiento()));
             }
         }
         
@@ -259,6 +283,14 @@ public class framePrincipal extends javax.swing.JFrame {
         areaMostrar.requestFocus();
         
     }//GEN-LAST:event_botonGoActionPerformed
+
+    private void botonDeshacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDeshacerActionPerformed
+        textoNJugadas.setText(String.valueOf(juego.deshaceMovimiento()));
+        muestraMatriz();
+        areaMostrar.setSelectionStart(fCursor);
+        areaMostrar.setSelectionEnd(fCursor+1);
+        areaMostrar.requestFocus();
+    }//GEN-LAST:event_botonDeshacerActionPerformed
     
     private void activaFlechas(){
         botonArriba.setEnabled(true);
@@ -266,6 +298,10 @@ public class framePrincipal extends javax.swing.JFrame {
         botonIzquierda.setEnabled(true);
         botonDerecha.setEnabled(true);
         botonGo.setEnabled(true);        
+    }
+    
+    private void recuperaCursor(){
+        
     }
     
     private void muestraMatriz(){
@@ -321,9 +357,12 @@ public class framePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botonAbajo;
     private javax.swing.JButton botonArriba;
     private javax.swing.JButton botonDerecha;
+    private javax.swing.JButton botonDeshacer;
     private javax.swing.JButton botonGo;
     private javax.swing.JButton botonIzquierda;
     private javax.swing.JButton botonMostrar;
+    private javax.swing.JLabel etiquetaNJugadas;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField textoNJugadas;
     // End of variables declaration//GEN-END:variables
 }

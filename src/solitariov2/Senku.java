@@ -1,6 +1,7 @@
 
 package solitariov2;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class Senku {
@@ -9,7 +10,14 @@ public class Senku {
     int posicionFF;
     int posicionCI;
     int posicionCF;
+    int posicionCInter;
+    int posicionFInter;
+    char origen = '#';
+    char destino = 'O';
+    char intermedio = '#';
     char [][] matriz;
+    int contadorMov = 0;
+    ArrayList<Movimientos> listado = new ArrayList();
 
 
     
@@ -40,6 +48,9 @@ public class Senku {
                     case("izquierda"):
                         if(matriz[posicionFF][posicionCF] == 'O' && matriz[posicionFF][posicionCF+1] == '#'
                                 && posicionCF - posicionCI == -2){
+                            this.posicionFInter = posicionFF;
+                            this.posicionCInter = posicionCF+1;
+                            guardaMovimiento();
                             matriz[posicionFF][posicionCF] = '#';
                             matriz[posicionFF][posicionCF+1] = 'O';
                             matriz[posicionFI][posicionCI] = 'O';
@@ -50,6 +61,9 @@ public class Senku {
                     case("derecha"):
                         if(matriz[posicionFF][posicionCF] == 'O' && matriz[posicionFF][posicionCF-1] == '#'
                                 && posicionCF - posicionCI == 2){
+                            this.posicionFInter = posicionFI;
+                            this.posicionCInter = posicionCF-1;
+                            guardaMovimiento();                            
                             matriz[posicionFF][posicionCF] = '#';
                             matriz[posicionFF][posicionCF-1] = 'O';
                             matriz[posicionFI][posicionCI] = 'O';
@@ -60,9 +74,12 @@ public class Senku {
                     case("arriba"):
                         if(matriz[posicionFF][posicionCF] == 'O' && matriz[posicionFF+1][posicionCF] == '#'
                                 && posicionFF - posicionFI == -2){
+                            this.posicionFInter = posicionFF+1;
+                            this.posicionCInter = posicionCI;
+                            guardaMovimiento();
                             matriz[posicionFF][posicionCF] = '#';
                             matriz[posicionFF+1][posicionCF] = 'O';
-                            matriz[posicionFI][posicionCI] = 'O';
+                            matriz[posicionFI][posicionCI] = 'O';                            
                             return true;
                         }else{
                             return false;
@@ -70,6 +87,9 @@ public class Senku {
                     case("abajo"):
                         if(matriz[posicionFF][posicionCF] == 'O' && matriz[posicionFF-1][posicionCF] == '#'
                                 && posicionFF - posicionFI == 2){
+                            this.posicionFInter = posicionFF-1;
+                            this.posicionCInter = posicionCI;
+                            guardaMovimiento();
                             matriz[posicionFF][posicionCF] = '#';
                             matriz[posicionFF-1][posicionCF] = 'O';
                             matriz[posicionFI][posicionCI] = 'O';
@@ -102,5 +122,45 @@ public class Senku {
         
         return "";
     }
+    
+    public int getNMovimiento(){
+        this.contadorMov++;
+        return this.contadorMov;
+    }
+    
+    public void guardaMovimiento(){
+        Movimientos movimiento = new Movimientos(posicionFI, posicionCI, posicionFF, posicionCF,
+                                 posicionFInter, posicionCInter, origen, destino, intermedio);
+        listado.add(movimiento);
+    }
+    
+    public int deshaceMovimiento(){
+        if(contadorMov>0){
+            Movimientos movimiento = listado.get(contadorMov-1);
+            posicionFI = movimiento.posicionFI;
+            posicionCI = movimiento.posicionCI;
+            posicionFF = movimiento.posicionFF;
+            posicionCF = movimiento.posicionCF;
+            posicionFInter = movimiento.posicionFInter;
+            posicionCInter = movimiento.posicionCInter;
+            origen = movimiento.origen;
+            destino = movimiento.destino;
+            intermedio = movimiento.intermedio;
+            matriz[posicionFI][posicionCI] = origen;
+            matriz[posicionFF][posicionCF] = destino;
+            matriz[posicionFInter][posicionCInter] = intermedio;
+            listado.remove(contadorMov-1);
+            contadorMov--;
+            return contadorMov;
+        }
+        return contadorMov;
+    }
+
+    
+    
+    
+   
+    
+    
     
 }
