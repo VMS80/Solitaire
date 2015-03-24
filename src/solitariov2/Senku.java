@@ -1,8 +1,24 @@
 
 package solitariov2;
 
+import com.sun.org.apache.xml.internal.serializer.OutputPropertiesFactory;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Text;
 
 public class Senku {
     
@@ -155,12 +171,61 @@ public class Senku {
         }
         return contadorMov;
     }
+    
+    public void guardaFichero() throws ParserConfigurationException, TransformerConfigurationException, TransformerException{
+        
 
-    
-    
-    
-   
-    
-    
-    
+            DocumentBuilderFactory fabricaCreadorDocumento = DocumentBuilderFactory.newInstance();
+            DocumentBuilder creadorDocumento = fabricaCreadorDocumento.newDocumentBuilder();
+            Document documento = creadorDocumento.newDocument();
+
+            Element elementoRaiz = documento.createElement("MOVIMIENTOS");
+            documento.appendChild(elementoRaiz);
+            for (int i =0;i<listado.size();i++){
+                Movimientos movimiento = listado.get(i);
+                Element elementoMovimiento = documento.createElement("MOVIMIENTO");
+                elementoRaiz.appendChild(elementoMovimiento);
+
+                Element elementoFilaInicial = documento.createElement("FILA_INICIAL");
+                elementoMovimiento.appendChild(elementoFilaInicial);
+                Text textoFilaInicial = documento.createTextNode(String.valueOf(movimiento.posicionFI));
+                elementoFilaInicial.appendChild(textoFilaInicial);
+
+                Element elementoColumnaInicial = documento.createElement("COLUMNA_INICIAL");
+                elementoMovimiento.appendChild(elementoColumnaInicial);
+                Text textoColumnaInicial = documento.createTextNode(String.valueOf(movimiento.posicionCI));
+                elementoColumnaInicial.appendChild(textoColumnaInicial);
+
+                Element elementoFilaFinal = documento.createElement("FILA_FINAL");
+                elementoMovimiento.appendChild(elementoFilaFinal);
+                Text textoFilaFinal = documento.createTextNode(String.valueOf(movimiento.posicionFF));
+                elementoFilaFinal.appendChild(textoFilaFinal);
+
+                Element elementoColumnaFinal = documento.createElement("COLUMNA_FINAL");
+                elementoMovimiento.appendChild(elementoColumnaFinal);
+                Text textoColumnaFinal = documento.createTextNode(String.valueOf(movimiento.posicionCF));
+                elementoColumnaFinal.appendChild(textoColumnaFinal);
+
+                Element elementoFilaIntermedia = documento.createElement("FILA_INTERMEDIA");
+                elementoMovimiento.appendChild(elementoFilaIntermedia);
+                Text textoFilaIntermedia = documento.createTextNode(String.valueOf(movimiento.posicionFInter));
+                elementoFilaIntermedia.appendChild(textoFilaIntermedia);
+
+                Element elementoColumnaIntermedia = documento.createElement("COLUMNA_INTERMEDIA");
+                elementoMovimiento.appendChild(elementoColumnaIntermedia);
+                Text textoColumnaIntermedia = documento.createTextNode(String.valueOf(movimiento.posicionCInter)); 
+                elementoColumnaIntermedia.appendChild(textoColumnaIntermedia);
+        }
+            TransformerFactory fabricaTransformador = TransformerFactory.newInstance();
+            Transformer transformador = fabricaTransformador.newTransformer();
+
+            transformador.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            transformador.setOutputProperty(OutputPropertiesFactory.S_KEY_INDENT_AMOUNT, "3");
+            Source origen = new DOMSource(documento);
+            Result destino = new StreamResult("movimientos.xml");
+            transformador.transform(origen, destino);
+        
+        
+    }
 }

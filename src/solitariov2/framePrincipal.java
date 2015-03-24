@@ -7,8 +7,12 @@ package solitariov2;
 
 import java.awt.Color;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.Caret;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 /**
  *
@@ -57,6 +61,7 @@ public class framePrincipal extends javax.swing.JFrame {
         etiquetaNJugadas = new javax.swing.JLabel();
         textoNJugadas = new javax.swing.JTextField();
         botonDeshacer = new javax.swing.JButton();
+        botonFichero = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -124,13 +129,22 @@ public class framePrincipal extends javax.swing.JFrame {
             }
         });
 
+        botonFichero.setText("Guardar Fichero de movimientos");
+        botonFichero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonFicheroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botonFichero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -155,7 +169,7 @@ public class framePrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(botonMostrar)
@@ -174,7 +188,9 @@ public class framePrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(etiquetaNJugadas)
                             .addComponent(textoNJugadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(botonFichero)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -291,6 +307,16 @@ public class framePrincipal extends javax.swing.JFrame {
         areaMostrar.setSelectionEnd(fCursor+1);
         areaMostrar.requestFocus();
     }//GEN-LAST:event_botonDeshacerActionPerformed
+
+    private void botonFicheroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonFicheroActionPerformed
+        try {
+            juego.guardaFichero();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(framePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(framePrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonFicheroActionPerformed
     
     private void activaFlechas(){
         botonArriba.setEnabled(true);
@@ -358,6 +384,7 @@ public class framePrincipal extends javax.swing.JFrame {
     private javax.swing.JButton botonArriba;
     private javax.swing.JButton botonDerecha;
     private javax.swing.JButton botonDeshacer;
+    private javax.swing.JButton botonFichero;
     private javax.swing.JButton botonGo;
     private javax.swing.JButton botonIzquierda;
     private javax.swing.JButton botonMostrar;
